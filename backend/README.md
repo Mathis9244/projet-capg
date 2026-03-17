@@ -1,37 +1,3 @@
-# projet-capg
-
-Monorepo séparé en **backend** (Spring Boot) et **frontend** (Angular).
-
-## Dossiers
-
-- `backend/` : API REST Spring Boot + JWT + Swagger + Docker + PostgreSQL
-- `frontend/web/` : application Angular (dashboard, création de sites, comparaison)
-
-## Démarrage rapide
-
-### Backend (Docker + PostgreSQL)
-
-```bash
-cd "c:\Users\mathi\OneDrive\Bureau\projet cap g\backend"
-docker compose up -d --build
-```
-
-- Swagger : `http://localhost:8080/swagger-ui/index.html`
-- PostgreSQL (pour DBeaver) : `localhost:5433` (db: `carbon_db`, user/pass: `postgres`/`postgres`)
-
-### Frontend (Angular)
-
-```bash
-cd "c:\Users\mathi\OneDrive\Bureau\projet cap g\frontend\web"
-npm install
-npm start
-```
-
-## Documentation
-
-- Backend : `backend/README.md`
-- Frontend : `frontend/web/README.md`
-
 # Empreinte Carbone — Hackathon 2026 Capgemini
 
 Application fullstack pour **calculer l’empreinte carbone d’un site physique** (bâtiments, matériaux, consommation énergétique, exploitation), avec indicateurs, comparaison de sites et historisation.
@@ -69,40 +35,34 @@ Référence : **HACKATHON 2026 - Cahier des charges-Projet Dev.pdf**
 
 ## Architecture et séparation Backend / Frontend
 
-Le dépôt est structuré en **deux parties bien distinctes** :
+Le dépôt est structuré en **deux dossiers racine** :
 
 ```
-projet cap g/
-├── Backend (Java Spring Boot) — racine du projet
+projet-capg/
+├── backend/                 # ce module (Spring Boot)
 │   ├── pom.xml
 │   ├── src/main/java/com/capg/hackathon/
 │   │   ├── config/          # Sécurité, JWT, CORS, OpenAPI, données initiales
 │   │   ├── site/            # Entités, DTOs, repository, service, contrôleur sites
 │   │   └── user/            # Entités, auth, contrôleur login
 │   ├── src/main/resources/
-│   │   └── application.properties
+│   │   ├── application.properties
+│   │   └── application-postgres.properties
 │   ├── Dockerfile
 │   ├── docker-compose.yml
 │   └── .dockerignore
 │
-├── Frontend (Angular) — dossier web/
-│   ├── src/app/
-│   │   ├── core/auth/       # Service auth, guard, interceptor
-│   │   ├── sites/           # API client (site-api.service), DTOs
-│   │   ├── pages/
-│   │   │   ├── login/
-│   │   │   ├── sites/       # Dashboard + formulaire
-│   │   │   └── compare/     # Comparaison de deux sites
-│   │   ├── app.config.ts
-│   │   └── app.routes.ts
-│   ├── angular.json
-│   └── package.json
+├── frontend/
+│   └── web/                 # Angular (UI + appels REST)
+│       ├── angular.json
+│       ├── package.json
+│       └── src/app/...
 │
-└── README.md                # Ce fichier
+└── README.md                 # README racine (démarrage rapide)
 ```
 
-- **Backend** : tout ce qui est à la **racine** (Maven, `src/`, Docker) : API REST, logique métier, base de données, JWT, Swagger.  
-- **Frontend** : tout ce qui est dans **`web/`** (Angular, npm) : UI, appels HTTP vers le backend, pas de logique métier CO₂.
+- **Backend** : `backend/` (API REST, calcul CO₂, persistance, JWT, Swagger).  
+- **Frontend** : `frontend/web/` (UI Angular, auth guard + interceptor, appels HTTP).
 
 La communication se fait **uniquement par API REST** (JSON) ; le frontend ne contient pas de base de données ni de calcul d’empreinte.
 
@@ -124,7 +84,7 @@ La communication se fait **uniquement par API REST** (JSON) ; le frontend ne con
 À la racine du projet :
 
 ```bash
-cd "c:\Users\mathi\OneDrive\Bureau\projet cap g"
+cd "c:\Users\mathi\OneDrive\Bureau\projet cap g\backend"
 mvn spring-boot:run
 ```
 
@@ -136,9 +96,8 @@ mvn spring-boot:run
 **Option B — Avec Docker**
 
 ```bash
-cd "c:\Users\mathi\OneDrive\Bureau\projet cap g"
-docker compose build
-docker compose up -d
+cd "c:\Users\mathi\OneDrive\Bureau\projet cap g\backend"
+docker compose up -d --build
 ```
 
 Même URLs que ci-dessus. La base reste H2 en mémoire dans le conteneur.
@@ -148,7 +107,7 @@ Même URLs que ci-dessus. La base reste H2 en mémoire dans le conteneur.
 Dans un **autre** terminal :
 
 ```bash
-cd "c:\Users\mathi\OneDrive\Bureau\projet cap g\web"
+cd "c:\Users\mathi\OneDrive\Bureau\projet cap g\frontend\web"
 npm install
 npm start
 ```

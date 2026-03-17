@@ -1,7 +1,7 @@
 # Frontend Angular — Empreinte Carbone
 
 Interface web du projet **Hackathon 2026 - Empreinte carbone d’un site physique**.  
-Ce dossier contient **uniquement le frontend** ; le backend (API REST) est à la racine du dépôt.
+Ce dossier contient **uniquement le frontend** ; le backend (API REST) est dans `../backend/` à la racine du dépôt.
 
 ## Stack
 
@@ -38,7 +38,7 @@ npm install
 npm start
 ```
 
-Ouvrir **http://localhost:4200**. Le backend doit tourner sur **http://localhost:8080** (voir README à la racine).
+Ouvrir **http://localhost:4200**. Le backend doit tourner sur **http://localhost:8080** (voir `../backend/README.md`).
 
 ## Build production
 

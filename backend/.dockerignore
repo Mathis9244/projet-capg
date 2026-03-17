@@ -1,7 +1,6 @@
 target/
 .git/
 .gitignore
-web/
 *.md
 .idea/
 *.iml
